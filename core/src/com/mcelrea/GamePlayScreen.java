@@ -20,6 +20,7 @@ public class GamePlayScreen implements Screen {
     OrthographicCamera camera;          //display a small portion of the world
     Box2DDebugRenderer debugRenderer;   //display the Bodies and Fixtures
     SpriteBatch batch;                  //used to draw Textures and Sprites
+    Player player1;
 
     @Override
     public void show() {
@@ -30,12 +31,16 @@ public class GamePlayScreen implements Screen {
         debugRenderer = new Box2DDebugRenderer();
         batch = new SpriteBatch();
 
+        player1 = new Player(world, 4, 4, 0, 0);
+
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1,0,0,1);
+        Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        update(delta);
 
         world.step(1/60f, 8, 3);
         camera.update();
@@ -47,6 +52,17 @@ public class GamePlayScreen implements Screen {
     public void resize(int width, int height) {
         camera.viewportWidth = width/25f;
         camera.viewportHeight = height/25f;
+    }
+
+    public void update(float delta) {
+        updatePlayer1(delta);
+    }
+
+    public void updatePlayer1(float delta) {
+
+        if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+            player1.rotateClockwise(delta);
+        }
     }
 
     @Override
