@@ -34,7 +34,27 @@ public class Player {
     }
 
     public void rotateClockwise(float delta) {
-        body.setTransform(0,0,body.getAngle()+ turnSpeed * delta);
+        body.setTransform(0,0,body.getAngle() - turnSpeed * delta);
+        body.setAwake(true);
+    }
+
+    public void rotateCounterClockwise(float delta) {
+        body.setTransform(0,0,body.getAngle() + turnSpeed * delta);
+        body.setAwake(true);
+    }
+
+    public float moveXByAngle(float angle)
+    {
+        return (float)Math.cos(angle);
+    }
+
+    public float moveYByAngle(float angle)
+    {
+        return (float)Math.sin(angle);
+    }
+
+    public void moveForward(float delta) {
+        body.setLinearVelocity(moveXByAngle(body.getAngle())*delta*moveSpeed,moveYByAngle(body.getAngle()) * delta * moveSpeed);
         body.setAwake(true);
     }
 }

@@ -63,6 +63,9 @@ public class GamePlayScreen implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             player1.rotateClockwise(delta);
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+            player1.rotateCounterClockwise(delta);
+        }
     }
 
     @Override
