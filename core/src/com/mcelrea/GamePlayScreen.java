@@ -21,6 +21,8 @@ public class GamePlayScreen implements Screen {
     Box2DDebugRenderer debugRenderer;   //display the Bodies and Fixtures
     SpriteBatch batch;                  //used to draw Textures and Sprites
     Player player1;
+    Player player2;
+    Map currentMap;
 
     @Override
     public void show() {
@@ -31,7 +33,10 @@ public class GamePlayScreen implements Screen {
         debugRenderer = new Box2DDebugRenderer();
         batch = new SpriteBatch();
 
-        player1 = new Player(world, 4, 4, 0, 0);
+        player1 = new Player(world, 200, 4, -10, -8);
+        player2 = new Player(world, 200, 4, 10, 8);
+
+        currentMap = new DominationTemple(world);
 
     }
 
@@ -55,7 +60,9 @@ public class GamePlayScreen implements Screen {
     }
 
     public void update(float delta) {
+
         updatePlayer1(delta);
+        updatePlayer2(delta);
     }
 
     public void updatePlayer1(float delta) {
@@ -66,6 +73,44 @@ public class GamePlayScreen implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
             player1.rotateCounterClockwise(delta);
         }
+
+        boolean moved = false;
+        if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+            player1.moveForward(delta);
+            moved = true;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+            player1.moveBackward(delta);
+            moved = true;
+        }
+        if(!moved) {
+            player1.stopMovement();
+        }
+
+    }
+
+    public void updatePlayer2(float delta) {
+
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            player2.rotateClockwise(delta);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            player2.rotateCounterClockwise(delta);
+        }
+
+        boolean moved = false;
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            player2.moveForward(delta);
+            moved = true;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            player2.moveBackward(delta);
+            moved = true;
+        }
+        if(!moved) {
+            player2.stopMovement();
+        }
+
     }
 
     @Override
