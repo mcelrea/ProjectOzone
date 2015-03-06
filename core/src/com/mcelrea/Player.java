@@ -10,12 +10,14 @@ public class Player {
     private Body body;
     private float moveSpeed;
     private float turnSpeed;
+    String name;
 
     //constructor
     public Player(World world, float moveSpeed, float turnSpeed,
-                  float x, float y) {
+                  float x, float y, String name) {
         this.moveSpeed = moveSpeed;
         this.turnSpeed = turnSpeed;
+        this.name = name;
 
         BodyDef bodyDef = new BodyDef();
         FixtureDef fixtureDef = new FixtureDef();
@@ -29,7 +31,7 @@ public class Player {
         fixtureDef.density = 700; //kg/m^2
         body = world.createBody(bodyDef);  //create the body in the world
         body.createFixture(fixtureDef); //attach the square fixture to the body
-        body.getFixtureList().first().setUserData(this); //name the body this (Player)
+        body.getFixtureList().first().setUserData(name); //name the body this (Player)
         box.dispose(); //dispose of the shape, freeing up memory and reducing memory leaks
     }
 
@@ -72,5 +74,16 @@ public class Player {
     public void stopMovement() {
         body.setLinearVelocity(0,0);
         body.setAwake(true);
+    }
+
+    public void shootBullet(World world) {
+        float xvel = moveXByAngle(body.getAngle());
+        float yvel = moveYByAngle(body.getAngle());
+        new Bullet(world, 0.3f,
+                   body.getPosition().x,
+                   body.getPosition().y,
+                   xvel*4,
+                   yvel*4,
+                   name + " bullet");
     }
 }

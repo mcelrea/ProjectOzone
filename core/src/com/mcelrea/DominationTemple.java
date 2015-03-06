@@ -1,9 +1,6 @@
 package com.mcelrea;
 
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 
 /**
  * Created by Tech on 3/5/2015.
@@ -22,7 +19,9 @@ public class DominationTemple implements Map {
         fixtureDef.restitution = 0f;
         fixtureDef.friction = 1f;
         fixtureDef.density = 1000;
-        world.createBody(bodyDef).createFixture(fixtureDef);
+        Body temp = world.createBody(bodyDef);
+        temp.createFixture(fixtureDef);
+        temp.getFixtureList().first().setUserData("wall");
         box.dispose();
     }
 
