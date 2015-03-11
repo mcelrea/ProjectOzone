@@ -8,12 +8,14 @@ import com.badlogic.gdx.physics.box2d.*;
 public class Bullet {
 
     Body body;
+    boolean alive;
 
     public Bullet(World world, float size,
                   float x, float y,
                   float xvel, float yvel,
                   String name) {
 
+        alive = true;
         BodyDef bodyDef = new BodyDef();
         FixtureDef fixtureDef = new FixtureDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;

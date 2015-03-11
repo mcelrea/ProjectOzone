@@ -4,12 +4,16 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+
+import java.util.ArrayList;
 
 /**
  * Created by Tech on 3/2/2015.
@@ -23,9 +27,17 @@ public class GamePlayScreen implements Screen {
     Player player1;
     Player player2;
     Map currentMap;
+    BitmapFont font;
+    boolean debug = true;
+
+    public static ArrayList<Bullet> bullets;
 
     @Override
     public void show() {
+        bullets = new ArrayList<Bullet>();
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
+
         //create world without gravity
         world = new World(new Vector2(0,0), true);
         world.setContactFilter(new MyContactFilter());
@@ -51,7 +63,35 @@ public class GamePlayScreen implements Screen {
         world.step(1/60f, 8, 3);
         camera.update();
 
+        batch.begin();
+        debugOutput();
+        batch.end();
+
         debugRenderer.render(world, camera.combined);
+
+        removeDeadBullets();
+    }
+
+    public void debugOutput() {
+        if(debug == true) {
+            font.draw(batch, "player 1 x: " + player1.body.getPosition().x, 5, 560);
+            font.draw(batch, "player 1 y: " + player1.body.getPosition().y, 5, 540);
+            font.draw(batch, "player 2 x: " + player2.body.getPosition().x, 5, 520);
+            font.draw(batch, "player 2 y: " + player2.body.getPosition().y, 5, 500);
+            font.draw(batch, "# of bullets: " + bullets.size(), 5, 480);
+        }
+    }
+
+    public void removeDeadBullets() {
+        //go through the array of bullets
+        for(int i=0; i < bullets.size(); i++) {
+            //if the current bullet is tagged for removal
+            if(bullets.get(i).alive == false) {
+                world.destroyBody(bullets.get(i).body);
+                bullets.remove(i);
+                i--;
+            }
+        }
     }
 
     @Override
@@ -64,6 +104,10 @@ public class GamePlayScreen implements Screen {
 
         updatePlayer1(delta);
         updatePlayer2(delta);
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.F10)) {
+            debug = !debug;
+        }
     }
 
     public void updatePlayer1(float delta) {

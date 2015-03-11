@@ -7,9 +7,11 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public class Player {
 
-    private Body body;
-    private float moveSpeed;
-    private float turnSpeed;
+    Body body;
+    float moveSpeed;
+    float turnSpeed;
+    float bulletSpeed = 8;
+    float bulletSize = 0.3f;
     String name;
 
     //constructor
@@ -79,11 +81,12 @@ public class Player {
     public void shootBullet(World world) {
         float xvel = moveXByAngle(body.getAngle());
         float yvel = moveYByAngle(body.getAngle());
-        new Bullet(world, 0.3f,
+        Bullet b = new Bullet(world, bulletSize,
                    body.getPosition().x,
                    body.getPosition().y,
-                   xvel*4,
-                   yvel*4,
+                   xvel*bulletSpeed,
+                   yvel*bulletSpeed,
                    name + " bullet");
+        GamePlayScreen.bullets.add(b);
     }
 }
