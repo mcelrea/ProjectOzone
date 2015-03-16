@@ -90,6 +90,7 @@ public class GamePlayScreen implements Screen {
                 world.destroyBody(bullets.get(i).body);
                 bullets.remove(i);
                 i--;
+                System.out.println("Tyring to destroy a bullet");
             }
         }
     }

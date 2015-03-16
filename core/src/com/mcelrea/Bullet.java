@@ -28,7 +28,7 @@ public class Bullet {
         fixtureDef.density = 500f;
         body = world.createBody(bodyDef);
         body.createFixture(fixtureDef);
-        body.getFixtureList().first().setUserData(name);
+        body.getFixtureList().first().setUserData(new BulletName(this,name));
         body.setLinearVelocity(xvel, yvel);
         c.dispose();
     }
