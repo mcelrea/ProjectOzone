@@ -50,15 +50,13 @@ public class MyContactFilter implements ContactFilter {
         /*
          * Bullets with Wall Collision
          */
-        if(fixtureA.getUserData() instanceof Bullet &&
+        if(fixtureA.getUserData() instanceof BulletName &&
                 fixtureB.getUserData().equals("wall")) {
-            ((Bullet)fixtureA.getUserData()).alive = false;
-            System.out.println("Contact!!!!");
+            ((BulletName)fixtureA.getUserData()).bullet.alive = false;
         }
         else if(fixtureA.getUserData().equals("wall") &&
-                fixtureB.getUserData() instanceof Bullet) {
-            ((Bullet)fixtureB.getUserData()).alive = false;
-            System.out.println("Contact!!!!");
+                fixtureB.getUserData() instanceof BulletName) {
+            ((BulletName)fixtureB.getUserData()).bullet.alive = false;
         }
 
 

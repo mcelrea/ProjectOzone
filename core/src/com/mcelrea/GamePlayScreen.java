@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -85,12 +86,32 @@ public class GamePlayScreen implements Screen {
     public void removeDeadBullets() {
         //go through the array of bullets
         for(int i=0; i < bullets.size(); i++) {
+
             //if the current bullet is tagged for removal
             if(bullets.get(i).alive == false) {
                 world.destroyBody(bullets.get(i).body);
                 bullets.remove(i);
                 i--;
                 System.out.println("Tyring to destroy a bullet");
+            }
+            else {//check if bullet is off screen
+
+                //ask the world for world coords of bullet (meters)
+                float x = bullets.get(i).body.getPosition().x;
+                float y = bullets.get(i).body.getPosition().y;
+                Vector3 worldCoords = new Vector3(x,y,0);
+
+                //ask the camera to convert from meters to pixels
+                Vector3 pixelCoords = camera.project(worldCoords);
+
+                //if the bullet is off screen
+                if(pixelCoords.x < 0 || pixelCoords.x > 800 ||
+                        pixelCoords.y < 0 || pixelCoords.y > 600) {
+                    world.destroyBody(bullets.get(i).body);
+                    bullets.remove(i);
+                    i--;
+                    System.out.println("Tyring to destroy a bullet");
+                }
             }
         }
     }
