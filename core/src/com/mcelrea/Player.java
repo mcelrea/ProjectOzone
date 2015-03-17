@@ -13,6 +13,7 @@ public class Player {
     float bulletSpeed = 8;
     float bulletSize = 0.3f;
     String name;
+    int score;
 
     //constructor
     public Player(World world, float moveSpeed, float turnSpeed,

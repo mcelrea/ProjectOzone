@@ -7,6 +7,10 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public class DominationTemple implements Map {
 
+    DomPoint domPoint1;
+    DomPoint domPoint2;
+    DomPoint domPoint3;
+
     public DominationTemple(World world) {
 
         BodyDef bodyDef = new BodyDef();
@@ -23,10 +27,34 @@ public class DominationTemple implements Map {
         temp.createFixture(fixtureDef);
         temp.getFixtureList().first().setUserData("wall");
         box.dispose();
+
+        domPoint1 = new DomPoint(world, -10, 5);
+        domPoint2 = new DomPoint(world, 10, 5);
+        domPoint3 = new DomPoint(world, 10, -5);
     }
 
     @Override
     public void update(float delta) {
 
+        if(domPoint1.owner.equals("player1")) {
+            GamePlayScreen.player1.score++;
+        }
+        else if(domPoint1.owner.equals("player2")) {
+            GamePlayScreen.player2.score++;
+        }
+
+        if(domPoint2.owner.equals("player1")) {
+            GamePlayScreen.player1.score++;
+        }
+        else if(domPoint2.owner.equals("player2")) {
+            GamePlayScreen.player2.score++;
+        }
+
+        if(domPoint3.owner.equals("player1")) {
+            GamePlayScreen.player1.score++;
+        }
+        else if(domPoint3.owner.equals("player2")) {
+            GamePlayScreen.player2.score++;
+        }
     }
 }

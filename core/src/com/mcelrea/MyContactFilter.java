@@ -59,6 +59,42 @@ public class MyContactFilter implements ContactFilter {
             ((BulletName)fixtureB.getUserData()).bullet.alive = false;
         }
 
+        /*
+         * Bullets with DomPoints
+         */
+        if(fixtureA.getUserData() instanceof DomPoint &&
+                fixtureB.getUserData() instanceof BulletName) {
+            return false;
+        }
+        else if(fixtureB.getUserData() instanceof DomPoint &&
+                fixtureA.getUserData() instanceof BulletName) {
+            return false;
+        }
+
+        /*
+         * Players with DomPoints
+         */
+        if(fixtureA.getUserData() instanceof DomPoint &&
+                fixtureB.getUserData().equals("player1")) {
+            ((DomPoint)fixtureA.getUserData()).owner = "player1";
+            return false;
+        }
+        else if(fixtureA.getUserData().equals("player1") &&
+                fixtureB.getUserData() instanceof DomPoint) {
+            ((DomPoint)fixtureB.getUserData()).owner = "player1";
+            return false;
+        }
+        if(fixtureA.getUserData() instanceof DomPoint &&
+                fixtureB.getUserData().equals("player2")) {
+            ((DomPoint)fixtureA.getUserData()).owner = "player2";
+            return false;
+        }
+        else if(fixtureA.getUserData().equals("player2") &&
+                fixtureB.getUserData() instanceof DomPoint) {
+            ((DomPoint)fixtureB.getUserData()).owner = "player2";
+            return false;
+        }
+
 
         //this is the last line of code!!!!
         return true;

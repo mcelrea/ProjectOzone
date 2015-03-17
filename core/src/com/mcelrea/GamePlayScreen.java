@@ -25,8 +25,8 @@ public class GamePlayScreen implements Screen {
     OrthographicCamera camera;          //display a small portion of the world
     Box2DDebugRenderer debugRenderer;   //display the Bodies and Fixtures
     SpriteBatch batch;                  //used to draw Textures and Sprites
-    Player player1;
-    Player player2;
+    public static Player player1;
+    public static Player player2;
     Map currentMap;
     BitmapFont font;
     boolean debug = true;
@@ -80,6 +80,8 @@ public class GamePlayScreen implements Screen {
             font.draw(batch, "player 2 x: " + player2.body.getPosition().x, 5, 520);
             font.draw(batch, "player 2 y: " + player2.body.getPosition().y, 5, 500);
             font.draw(batch, "# of bullets: " + bullets.size(), 5, 480);
+            font.draw(batch, "player 1 score: " + player1.score, 5, 460);
+            font.draw(batch, "player 2 score: " + player2.score, 5, 440);
         }
     }
 
@@ -126,6 +128,7 @@ public class GamePlayScreen implements Screen {
 
         updatePlayer1(delta);
         updatePlayer2(delta);
+        currentMap.update(delta);
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.F10)) {
             debug = !debug;
