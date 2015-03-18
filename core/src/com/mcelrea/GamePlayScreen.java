@@ -47,8 +47,8 @@ public class GamePlayScreen implements Screen {
         debugRenderer = new Box2DDebugRenderer();
         batch = new SpriteBatch();
 
-        player1 = new Player(world, 200, 4, -10, -8, "player1");
-        player2 = new Player(world, 200, 4, 10, 8, "player2");
+        player1 = new Player(world, 200, 4, -10, -8, "player1", "blueTank.png");
+        player2 = new Player(world, 200, 4, 10, 8, "player2", "redTank.png");
 
         currentMap = new DominationTemple(world);
 
@@ -66,6 +66,8 @@ public class GamePlayScreen implements Screen {
 
         batch.begin();
         debugOutput();
+        player1.paint(batch, camera);
+        player2.paint(batch, camera);
         batch.end();
 
         debugRenderer.render(world, camera.combined);
