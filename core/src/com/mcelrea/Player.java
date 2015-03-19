@@ -27,6 +27,7 @@ public class Player {
     float startx;
     float starty;
     Sprite sprite;
+    boolean reset = false;
 
     //constructor
     public Player(World world, float moveSpeed, float turnSpeed,
@@ -115,6 +116,14 @@ public class Player {
             GamePlayScreen.bullets.add(b);
             canShoot = false;
             lastShot = System.currentTimeMillis();
+        }
+    }
+
+    public void update() {
+        if(reset) {
+            body.setTransform(startx, starty, 0);
+            body.setAwake(true);
+            reset = false;
         }
     }
 

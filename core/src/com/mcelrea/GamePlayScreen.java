@@ -60,6 +60,8 @@ public class GamePlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         update(delta);
+        player1.update();
+        player2.update();
 
         world.step(1/60f, 8, 3);
         camera.update();

@@ -1,5 +1,6 @@
 package com.mcelrea;
 
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.ContactFilter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
@@ -101,6 +102,42 @@ public class MyContactFilter implements ContactFilter {
                 fixtureB.getUserData() instanceof DomPoint) {
             ((DomPoint)fixtureB.getUserData()).owner = "player2";
             return false;
+        }
+
+        /*
+         * Bullet with Player Collision
+         */
+        if(fixtureA.getUserData() instanceof BulletName &&
+                ((BulletName)fixtureA.getUserData()).name.equals("player1 bullet")&&
+                fixtureB.getUserData() instanceof PlayerUserData &&
+                ((PlayerUserData)fixtureB.getUserData()).name.equals("player2")) {
+            Player p = ((PlayerUserData)fixtureB.getUserData()).player;
+            p.reset = true;
+            ((BulletName)fixtureA.getUserData()).bullet.alive = false;
+        }
+        else if(fixtureB.getUserData() instanceof BulletName &&
+                ((BulletName)fixtureB.getUserData()).name.equals("player1 bullet")&&
+                fixtureA.getUserData() instanceof PlayerUserData &&
+                ((PlayerUserData)fixtureA.getUserData()).name.equals("player2")) {
+            Player p = ((PlayerUserData)fixtureA.getUserData()).player;
+            p.reset = true;
+            ((BulletName)fixtureB.getUserData()).bullet.alive = false;
+        }
+        if(fixtureA.getUserData() instanceof BulletName &&
+                ((BulletName)fixtureA.getUserData()).name.equals("player2 bullet")&&
+                fixtureB.getUserData() instanceof PlayerUserData &&
+                ((PlayerUserData)fixtureB.getUserData()).name.equals("player1")) {
+            Player p = ((PlayerUserData)fixtureB.getUserData()).player;
+            p.reset = true;
+            ((BulletName)fixtureA.getUserData()).bullet.alive = false;
+        }
+        else if(fixtureB.getUserData() instanceof BulletName &&
+                ((BulletName)fixtureB.getUserData()).name.equals("player2 bullet")&&
+                fixtureA.getUserData() instanceof PlayerUserData &&
+                ((PlayerUserData)fixtureA.getUserData()).name.equals("player1")) {
+            Player p = ((PlayerUserData)fixtureA.getUserData()).player;
+            p.reset = true;
+            ((BulletName)fixtureB.getUserData()).bullet.alive = false;
         }
 
 
