@@ -16,11 +16,16 @@ public class Player {
     Body body;
     float moveSpeed;
     float turnSpeed;
-    float bulletSpeed = 8;
+    float bulletSpeed = 15;
     float bulletSize = 0.3f;
     float playerSize = 0.5f;
     String name;
+    long lastShot;
+    long shootDelay = 1000; //1000 = 1 second
+    boolean canShoot = true;
     int score;
+    float startx;
+    float starty;
     Sprite sprite;
 
     //constructor
@@ -29,6 +34,8 @@ public class Player {
         this.moveSpeed = moveSpeed;
         this.turnSpeed = turnSpeed;
         this.name = name;
+        startx = x;
+        starty = y;
 
         BodyDef bodyDef = new BodyDef();
         FixtureDef fixtureDef = new FixtureDef();
@@ -42,7 +49,7 @@ public class Player {
         fixtureDef.density = 700; //kg/m^2
         body = world.createBody(bodyDef);  //create the body in the world
         body.createFixture(fixtureDef); //attach the square fixture to the body
-        body.getFixtureList().first().setUserData(name); //name the body this (Player)
+        body.getFixtureList().first().setUserData(new PlayerUserData(this,name)); //name the body this (Player)
         box.dispose(); //dispose of the shape, freeing up memory and reducing memory leaks
 
         Texture t = new Texture(Gdx.files.internal(path));
@@ -91,15 +98,24 @@ public class Player {
     }
 
     public void shootBullet(World world) {
-        float xvel = moveXByAngle(body.getAngle());
-        float yvel = moveYByAngle(body.getAngle());
-        Bullet b = new Bullet(world, bulletSize,
-                   body.getPosition().x,
-                   body.getPosition().y,
-                   xvel*bulletSpeed,
-                   yvel*bulletSpeed,
-                   name + " bullet");
-        GamePlayScreen.bullets.add(b);
+
+        if(lastShot + shootDelay < System.currentTimeMillis()) {
+            canShoot = true;
+        }
+
+        if(canShoot == true) {
+            float xvel = moveXByAngle(body.getAngle());
+            float yvel = moveYByAngle(body.getAngle());
+            Bullet b = new Bullet(world, bulletSize,
+                    body.getPosition().x,
+                    body.getPosition().y,
+                    xvel * bulletSpeed,
+                    yvel * bulletSpeed,
+                    name + " bullet");
+            GamePlayScreen.bullets.add(b);
+            canShoot = false;
+            lastShot = System.currentTimeMillis();
+        }
     }
 
     public void paint(SpriteBatch batch, OrthographicCamera camera) {

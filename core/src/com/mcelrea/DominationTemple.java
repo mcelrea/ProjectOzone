@@ -1,5 +1,7 @@
 package com.mcelrea;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.*;
 
 /**
@@ -56,5 +58,12 @@ public class DominationTemple implements Map {
         else if(domPoint3.owner.equals("player2")) {
             GamePlayScreen.player2.score++;
         }
+    }
+
+    public void paint(SpriteBatch batch, OrthographicCamera camera) {
+
+        domPoint1.paint(batch, camera);
+        domPoint2.paint(batch, camera);
+        domPoint3.paint(batch, camera);
     }
 }

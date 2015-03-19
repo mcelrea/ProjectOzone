@@ -65,6 +65,7 @@ public class GamePlayScreen implements Screen {
         camera.update();
 
         batch.begin();
+        currentMap.paint(batch, camera);
         debugOutput();
         player1.paint(batch, camera);
         player2.paint(batch, camera);

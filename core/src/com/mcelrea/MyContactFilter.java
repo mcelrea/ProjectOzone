@@ -13,12 +13,14 @@ public class MyContactFilter implements ContactFilter {
         /*
          * Player1 and Player 1 bullet collision
          */
-        if(fixtureA.getUserData().equals("player1") &&
+        if(fixtureA.getUserData() instanceof PlayerUserData &&
+                ((PlayerUserData)fixtureA.getUserData()).name.equals("player1") &&
                 fixtureB.getUserData() instanceof BulletName &&
                 ((BulletName)fixtureB.getUserData()).name.equals("player1 bullet")) {
             return false;
         }
-        else if(fixtureB.getUserData().equals("player1") &&
+        else if(fixtureB.getUserData() instanceof PlayerUserData &&
+                ((PlayerUserData)fixtureB.getUserData()).name.equals("player1") &&
                 fixtureA.getUserData() instanceof BulletName &&
                 ((BulletName)fixtureA.getUserData()).name.equals("player1 bullet")) {
             return false;
@@ -27,12 +29,14 @@ public class MyContactFilter implements ContactFilter {
         /*
          * Player2 and Player 2 bullet collision
          */
-        if(fixtureA.getUserData().equals("player2") &&
+        if(fixtureA.getUserData() instanceof PlayerUserData &&
+                ((PlayerUserData)fixtureA.getUserData()).name.equals("player2") &&
                 fixtureB.getUserData() instanceof BulletName &&
                 ((BulletName)fixtureB.getUserData()).name.equals("player2 bullet")) {
             return false;
         }
-        else if(fixtureB.getUserData().equals("player2") &&
+        else if(fixtureB.getUserData() instanceof PlayerUserData &&
+                ((PlayerUserData)fixtureB.getUserData()).name.equals("player2") &&
                 fixtureA.getUserData() instanceof BulletName &&
                 ((BulletName)fixtureA.getUserData()).name.equals("player2 bullet")) {
             return false;
@@ -75,21 +79,25 @@ public class MyContactFilter implements ContactFilter {
          * Players with DomPoints
          */
         if(fixtureA.getUserData() instanceof DomPoint &&
-                fixtureB.getUserData().equals("player1")) {
+                fixtureB.getUserData() instanceof PlayerUserData &&
+                ((PlayerUserData)fixtureB.getUserData()).name.equals("player1")) {
             ((DomPoint)fixtureA.getUserData()).owner = "player1";
             return false;
         }
-        else if(fixtureA.getUserData().equals("player1") &&
+        else if(fixtureA.getUserData() instanceof PlayerUserData &&
+                ((PlayerUserData)fixtureA.getUserData()).name.equals("player1") &&
                 fixtureB.getUserData() instanceof DomPoint) {
             ((DomPoint)fixtureB.getUserData()).owner = "player1";
             return false;
         }
         if(fixtureA.getUserData() instanceof DomPoint &&
-                fixtureB.getUserData().equals("player2")) {
+                fixtureB.getUserData() instanceof PlayerUserData &&
+                ((PlayerUserData)fixtureB.getUserData()).name.equals("player2")) {
             ((DomPoint)fixtureA.getUserData()).owner = "player2";
             return false;
         }
-        else if(fixtureA.getUserData().equals("player2") &&
+        else if(fixtureA.getUserData() instanceof PlayerUserData &&
+                ((PlayerUserData)fixtureA.getUserData()).name.equals("player2") &&
                 fixtureB.getUserData() instanceof DomPoint) {
             ((DomPoint)fixtureB.getUserData()).owner = "player2";
             return false;
