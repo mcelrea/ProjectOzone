@@ -49,6 +49,9 @@ public class GamePlayScreen implements Screen {
 
         player1 = new Player(world, 200, 4, -10, -8, "player1", "blueTank.png");
         player2 = new Player(world, 200, 4, 10, 8, "player2", "redTank.png");
+        player2.body.setTransform(player2.body.getPosition().x,
+                                  player2.body.getPosition().y,
+                                 (float)(Math.toRadians(180)));
 
         currentMap = new DominationTemple(world);
 

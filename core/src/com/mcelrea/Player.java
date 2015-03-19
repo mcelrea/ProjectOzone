@@ -121,7 +121,12 @@ public class Player {
 
     public void update() {
         if(reset) {
-            body.setTransform(startx, starty, 0);
+            if(name.equals("player1")) {
+                body.setTransform(startx, starty, 0);
+            }
+            else {
+                body.setTransform(startx, starty, (float)(Math.toRadians(180)));
+            }
             body.setAwake(true);
             reset = false;
         }
