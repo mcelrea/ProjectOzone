@@ -111,17 +111,6 @@ public class Player {
         //to screen coordinates (pixels)
         Vector3 screenCoords = camera.project(worldCoords);
 
-//        batch.draw(car,
-//                car.getX(),
-//                car.getY(),
-//                car.getWidth()/2,
-//                car.getHeight()/2,
-//                car.getWidth(),
-//                car.getHeight(),
-//                car.getScaleX(),
-//                car.getScaleY(),
-//                car.getRotation());
-
         float def = (float)(Math.toDegrees(body.getAngle()));
         sprite.setRotation(def);
         //draw the player image onto the screen
