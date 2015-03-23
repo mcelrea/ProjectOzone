@@ -29,8 +29,9 @@ public class GamePlayScreen implements Screen {
     public static Player player2;
     Map currentMap;
     BitmapFont font;
-    boolean debug = true;
-    BitmapFont scoreFont;
+    boolean debug = false;
+    BitmapFont blueFont;
+    BitmapFont redFont;
 
     public static ArrayList<Bullet> bullets;
 
@@ -39,7 +40,8 @@ public class GamePlayScreen implements Screen {
         bullets = new ArrayList<Bullet>();
         font = new BitmapFont();
         font.setColor(Color.WHITE);
-        scoreFont = new BitmapFont(Gdx.files.internal("scoreFont.fnt"));
+        blueFont = new BitmapFont(Gdx.files.internal("blueFont.fnt"));
+        redFont = new BitmapFont(Gdx.files.internal("redFont.fnt"));
 
         //create world without gravity
         world = new World(new Vector2(0,0), true);
@@ -85,8 +87,8 @@ public class GamePlayScreen implements Screen {
     }
 
     private void drawGUI() {
-        scoreFont.draw(batch, "Player 1: " + player1.score/100, 5, 600);
-        scoreFont.draw(batch, "Player 2: " + player2.score/100, 450, 600);
+        blueFont.draw(batch, "P1: " + player1.score/100, 15, 600);
+        redFont.draw(batch, "P2: " + player2.score/100, 650, 600);
     }
 
     public void debugOutput() {
