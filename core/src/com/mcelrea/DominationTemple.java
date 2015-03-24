@@ -1,6 +1,8 @@
 package com.mcelrea;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -12,6 +14,8 @@ public class DominationTemple implements Map {
     DomPoint domPoint1;
     DomPoint domPoint2;
     DomPoint domPoint3;
+    Texture endScreen;
+    int scoreToWin = 20;
 
     public DominationTemple(World world) {
 
@@ -33,6 +37,8 @@ public class DominationTemple implements Map {
         domPoint1 = new DomPoint(world, -10, 5);
         domPoint2 = new DomPoint(world, 10, 5);
         domPoint3 = new DomPoint(world, 10, -5);
+
+        endScreen = new Texture(Gdx.files.internal("dominationTempleEndRound.png"));
     }
 
     @Override
@@ -58,6 +64,11 @@ public class DominationTemple implements Map {
         else if(domPoint3.owner.equals("player2")) {
             GamePlayScreen.player2.score++;
         }
+
+        if(GamePlayScreen.player1.score/100 >= scoreToWin ||
+                GamePlayScreen.player2.score/100 >= scoreToWin) {
+            GamePlayScreen.roundOver = true;
+        }
     }
 
     public void paint(SpriteBatch batch, OrthographicCamera camera) {
@@ -70,11 +81,11 @@ public class DominationTemple implements Map {
 
     @Override
     public void paintLoadScreen(SpriteBatch batch, OrthographicCamera camera) {
-        
+
     }
 
     @Override
     public void paintEndRoundScreen(SpriteBatch batch, OrthographicCamera camera) {
-
+        batch.draw(endScreen,0,0);
     }
 }

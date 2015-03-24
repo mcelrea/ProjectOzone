@@ -32,8 +32,8 @@ public class GamePlayScreen implements Screen {
     boolean debug = false;
     BitmapFont blueFont;
     BitmapFont redFont;
-    boolean roundOver = false;
-    boolean gameOver = false;
+    public static boolean roundOver = false;
+    public static boolean gameOver = false;
     long showRoundEndScreenTime = 5000;//5 seconds
     long showRoundLoadScreenTime = 5000; //5 seconds
 
@@ -83,11 +83,16 @@ public class GamePlayScreen implements Screen {
         camera.update();
 
         batch.begin();
-        currentMap.paint(batch, camera);
-        drawGUI();
-        debugOutput();
-        player1.paint(batch, camera);
-        player2.paint(batch, camera);
+        if(roundOver == false && gameOver == false) {
+            currentMap.paint(batch, camera);
+            drawGUI();
+            debugOutput();
+            player1.paint(batch, camera);
+            player2.paint(batch, camera);
+        }
+        else if (roundOver == true && gameOver == false) {
+            currentMap.paintEndRoundScreen(batch, camera);
+        }
         batch.end();
 
         debugRenderer.render(world, camera.combined);
