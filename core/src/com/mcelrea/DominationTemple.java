@@ -65,5 +65,16 @@ public class DominationTemple implements Map {
         domPoint1.paint(batch, camera);
         domPoint2.paint(batch, camera);
         domPoint3.paint(batch, camera);
+
+    }
+
+    @Override
+    public void paintLoadScreen(SpriteBatch batch, OrthographicCamera camera) {
+        
+    }
+
+    @Override
+    public void paintEndRoundScreen(SpriteBatch batch, OrthographicCamera camera) {
+
     }
 }

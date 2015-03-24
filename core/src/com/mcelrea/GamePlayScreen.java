@@ -32,6 +32,15 @@ public class GamePlayScreen implements Screen {
     boolean debug = false;
     BitmapFont blueFont;
     BitmapFont redFont;
+    boolean roundOver = false;
+    boolean gameOver = false;
+    long showRoundEndScreenTime = 5000;//5 seconds
+    long showRoundLoadScreenTime = 5000; //5 seconds
+
+
+    public boolean isDebug() {
+        return debug;
+    }
 
     public static ArrayList<Bullet> bullets;
 
