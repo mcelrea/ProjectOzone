@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.util.ArrayList;
 
@@ -34,8 +35,11 @@ public class GamePlayScreen implements Screen {
     BitmapFont redFont;
     public static boolean roundOver = false;
     public static boolean gameOver = false;
-    long showRoundEndScreenTime = 5000;//5 seconds
-    long showRoundLoadScreenTime = 5000; //5 seconds
+    public static boolean loadingMap = true;
+    public static long showRoundEndScreenTime = 5000;//5 seconds
+    public static long showRoundLoadScreenTime = 5000; //5 seconds
+    public static long loadMapTimeStamp;
+    public static long roundOverTimeStamp;
 
 
     public boolean isDebug() {
@@ -67,7 +71,7 @@ public class GamePlayScreen implements Screen {
                                  (float)(Math.toRadians(180)));
 
         currentMap = new DominationTemple(world);
-
+        loadMapTimeStamp = System.currentTimeMillis();
     }
 
     @Override
@@ -75,15 +79,23 @@ public class GamePlayScreen implements Screen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        update(delta);
-        player1.update();
-        player2.update();
+        if(roundOver == false && gameOver == false && loadingMap == false) {
+            update(delta);
+            player1.update();
+            player2.update();
 
-        world.step(1/60f, 8, 3);
-        camera.update();
+            world.step(1 / 60f, 8, 3);
+            camera.update();
+        }
 
         batch.begin();
-        if(roundOver == false && gameOver == false) {
+        if(loadingMap == true) {
+            currentMap.paintLoadScreen(batch, camera);
+            if(System.currentTimeMillis() > loadMapTimeStamp + showRoundLoadScreenTime) {
+                loadingMap = false;
+            }
+        }
+        else if(roundOver == false && gameOver == false) {
             currentMap.paint(batch, camera);
             drawGUI();
             debugOutput();

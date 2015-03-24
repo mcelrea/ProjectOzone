@@ -15,6 +15,7 @@ public class DominationTemple implements Map {
     DomPoint domPoint2;
     DomPoint domPoint3;
     Texture endScreen;
+    Texture loadScreen;
     int scoreToWin = 20;
 
     public DominationTemple(World world) {
@@ -39,6 +40,7 @@ public class DominationTemple implements Map {
         domPoint3 = new DomPoint(world, 10, -5);
 
         endScreen = new Texture(Gdx.files.internal("dominationTempleEndRound.png"));
+        loadScreen = new Texture(Gdx.files.internal("dominationTempleLoading.png"));
     }
 
     @Override
@@ -81,7 +83,7 @@ public class DominationTemple implements Map {
 
     @Override
     public void paintLoadScreen(SpriteBatch batch, OrthographicCamera camera) {
-
+        batch.draw(loadScreen,0,0);
     }
 
     @Override
