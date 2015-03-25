@@ -1,6 +1,7 @@
 package com.mcelrea;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,6 +18,7 @@ public class DominationTemple implements Map {
     Texture endScreen;
     Texture loadScreen;
     int scoreToWin = 20;
+    Sound music;
 
     public DominationTemple(World world) {
 
@@ -41,6 +43,9 @@ public class DominationTemple implements Map {
 
         endScreen = new Texture(Gdx.files.internal("dominationTempleEndRound.png"));
         loadScreen = new Texture(Gdx.files.internal("dominationTempleLoading.png"));
+
+        music = Gdx.audio.newSound(Gdx.files.internal("music1.mp3"));
+        music.loop();
     }
 
     @Override
