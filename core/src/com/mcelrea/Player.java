@@ -30,6 +30,7 @@ public class Player {
     Sprite sprite;
     boolean reset = false;
     Sound shootSound;
+    Sound hitSound;
 
     //constructor
     public Player(World world, float moveSpeed, float turnSpeed,
@@ -59,6 +60,7 @@ public class Player {
         sprite = new Sprite(t);
 
         shootSound = Gdx.audio.newSound(Gdx.files.internal("Laser_Shoot31.wav"));
+        hitSound = Gdx.audio.newSound(Gdx.files.internal("tankHitSound.wav"));
     }
 
     public void rotateClockwise(float delta) {
@@ -126,6 +128,7 @@ public class Player {
 
     public void update() {
         if(reset) {
+            hitSound.play();
             if(name.equals("player1")) {
                 body.setTransform(startx, starty, 0);
             }
