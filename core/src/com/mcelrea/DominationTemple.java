@@ -45,7 +45,7 @@ public class DominationTemple implements Map {
         loadScreen = new Texture(Gdx.files.internal("dominationTempleLoading.png"));
 
         music = Gdx.audio.newSound(Gdx.files.internal("music1.mp3"));
-        //music.loop();
+        music.loop(.1f);
     }
 
     @Override
@@ -84,6 +84,26 @@ public class DominationTemple implements Map {
         domPoint2.paint(batch, camera);
         domPoint3.paint(batch, camera);
 
+    }
+
+    public boolean player1Dominating() {
+        if(domPoint1.owner.equals("player1") &&
+                domPoint2.owner.equals("player1") &&
+                domPoint3.owner.equals("player1")) {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public boolean player2Dominating() {
+        if(domPoint1.owner.equals("player2") &&
+                domPoint2.owner.equals("player2") &&
+                domPoint3.owner.equals("player2")) {
+            return true;
+        }
+        else
+            return false;
     }
 
     @Override
