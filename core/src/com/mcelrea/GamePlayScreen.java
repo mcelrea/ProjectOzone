@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -41,6 +42,9 @@ public class GamePlayScreen implements Screen {
     public static long loadMapTimeStamp;
     public static long roundOverTimeStamp;
 
+    public static Sound unbelievable;
+    public static Sound domPointCaptured;
+
 
     public boolean isDebug() {
         return debug;
@@ -72,6 +76,9 @@ public class GamePlayScreen implements Screen {
 
         currentMap = new DominationTemple(world);
         loadMapTimeStamp = System.currentTimeMillis();
+
+        domPointCaptured = Gdx.audio.newSound(Gdx.files.internal("domPointCaptured.wav"));
+        unbelievable = Gdx.audio.newSound(Gdx.files.internal("unbelievable.wav"));
     }
 
     @Override

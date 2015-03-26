@@ -45,7 +45,7 @@ public class DominationTemple implements Map {
         loadScreen = new Texture(Gdx.files.internal("dominationTempleLoading.png"));
 
         music = Gdx.audio.newSound(Gdx.files.internal("music1.mp3"));
-        music.loop();
+        //music.loop();
     }
 
     @Override

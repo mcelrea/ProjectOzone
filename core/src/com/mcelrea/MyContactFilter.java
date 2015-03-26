@@ -1,5 +1,6 @@
 package com.mcelrea;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.ContactFilter;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
  * Created by Tech on 3/6/2015.
  */
 public class MyContactFilter implements ContactFilter {
+
     @Override
     public boolean shouldCollide(Fixture fixtureA, Fixture fixtureB) {
 
@@ -82,25 +84,41 @@ public class MyContactFilter implements ContactFilter {
         if(fixtureA.getUserData() instanceof DomPoint &&
                 fixtureB.getUserData() instanceof PlayerUserData &&
                 ((PlayerUserData)fixtureB.getUserData()).name.equals("player1")) {
-            ((DomPoint)fixtureA.getUserData()).owner = "player1";
+            String temp = ((DomPoint)fixtureA.getUserData()).owner;
+            if(!temp.equals("player1")) {
+                ((DomPoint) fixtureA.getUserData()).owner = "player1";
+                GamePlayScreen.domPointCaptured.play();
+            }
             return false;
         }
         else if(fixtureA.getUserData() instanceof PlayerUserData &&
                 ((PlayerUserData)fixtureA.getUserData()).name.equals("player1") &&
                 fixtureB.getUserData() instanceof DomPoint) {
-            ((DomPoint)fixtureB.getUserData()).owner = "player1";
+            String temp = ((DomPoint)fixtureB.getUserData()).owner;
+            if(!temp.equals("player1")) {
+                ((DomPoint) fixtureB.getUserData()).owner = "player1";
+                GamePlayScreen.domPointCaptured.play();
+            }
             return false;
         }
         if(fixtureA.getUserData() instanceof DomPoint &&
                 fixtureB.getUserData() instanceof PlayerUserData &&
                 ((PlayerUserData)fixtureB.getUserData()).name.equals("player2")) {
-            ((DomPoint)fixtureA.getUserData()).owner = "player2";
+            String temp = ((DomPoint)fixtureA.getUserData()).owner;
+            if(!temp.equals("player2")) {
+                ((DomPoint) fixtureA.getUserData()).owner = "player2";
+                GamePlayScreen.domPointCaptured.play();
+            }
             return false;
         }
         else if(fixtureA.getUserData() instanceof PlayerUserData &&
                 ((PlayerUserData)fixtureA.getUserData()).name.equals("player2") &&
                 fixtureB.getUserData() instanceof DomPoint) {
-            ((DomPoint)fixtureB.getUserData()).owner = "player2";
+            String temp = ((DomPoint)fixtureB.getUserData()).owner;
+            if(!temp.equals("player2")) {
+                ((DomPoint) fixtureB.getUserData()).owner = "player2";
+                GamePlayScreen.domPointCaptured.play();
+            }
             return false;
         }
 
